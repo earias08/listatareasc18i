@@ -7,19 +7,29 @@ import ListaTareas from "./ListaTareas";
 const FormTareas = () => {
     //aqui va la logica
     const [arregloTareas, setArregloTareas] = useState([]);
+    const [tarea, setTarea] = useState('');
 
+    //crear funciones
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      //guardar una tarea en el arregloTareas
+      setArregloTareas([...arregloTareas,tarea]);
+      //limpiar el input
+      //e.target.reset();
+      setTarea('');
+    }
 
   return (
     <div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 d-flex">
-          <Form.Control type="text" placeholder="Ingrese una tarea" />
+          <Form.Control type="text" placeholder="Ingrese una tarea" onChange={e=> setTarea(e.target.value)} value={tarea}/>
           <Button variant="primary" type="submit">
-            Submit
+            Enviar
           </Button>
         </Form.Group>
       </Form>
-      <ListaTareas></ListaTareas>
+      <ListaTareas stateTareas={arregloTareas}></ListaTareas>
     </div>
   );
 };
